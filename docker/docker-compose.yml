@@ -1,0 +1,41 @@
+version: '3'
+services:
+  mysql:
+    container_name: taxapp_mysql
+    image: mysql:5.7
+    ports:
+      - "13306:3306"
+    environment:
+      MYSQL_DATABASE: tax
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - "./sql/:/docker-entrypoint-initdb.d"
+  redis:
+    container_name: taxapp_redis
+    image: redis:4
+    ports:
+      - "16379:6379"
+    logging:
+      driver: "none"
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:5.5.3
+    container_name: taxapp_elastic
+    environment:
+      - xpack.security.enabled=false
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+    ports:
+      - "19200:9200"
+    logging:
+      driver: "none"
+
+volumes:
+  esdata:
+    driver: local

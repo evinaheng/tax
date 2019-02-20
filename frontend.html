@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Google Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div>
+  <table id="records_table" border='1'>
+    <tr>
+        <th>Name</th>
+		<th>Tax Code</th>
+		<th>Type</th>
+		<th>Refundable</th>
+		<th>Price</th>
+		<th>Tax</th>
+		<th>Amount</th>
+    </tr>
+    </table>
+    <div id="grandTotal"></div>
+    <div id="subTotal"></div>
+    <div id="taxTotal"></div>
+</div>
+
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+
+$(document).ready(function () {
+  $.ajax({
+    url: 'http://localhost:9006/v1/tax/getBills',
+    type: 'GET',
+    contentType: 'text/plain',
+    xhrFields: {
+        withCredentials: false
+    },
+    success: function (response) {
+        console.log(response);
+        var trHTML = '';
+        $.each(response.data.attributes, function (i, item) {
+            trHTML += '<tr>'+
+                '<td>' + item.name + '</td>'+
+                '<td>' + item.tax_code + '</td>'+
+                '<td>' + item.type + '</td>'+
+                '<td>' + item.is_refundable + '</td>'+
+                '<td>' + item.price + '</td>'+
+                '<td>' + item.tax + '</td>'+
+                '<td>' + item.amount + '</td>'+
+                '</tr>';
+        });
+        $('#records_table').append(trHTML);
+        $('#grandTotal').append("Grand Total: ",response.info.grand_total);
+        $('#subTotal').append("Sub Total: ",response.info.sub_total);
+        $('#taxTotal').append("Tax Total: ",response.info.tax_sub_total);
+    }
+	});
+});
+	
+</script>
+</html>
