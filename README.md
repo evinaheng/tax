@@ -16,7 +16,7 @@
 - `controller` will be contain all kind functional that contain multiple repository and serve it as one function, also will contain business logic (internal/controller)
 - `usecase` will be works as one big functional (goals) on one of endpoint service (internal/usecase)
 - `delivery` will be initialize all needed packages and serve it on the service routes (api/tax/)
-- `entity` will be contain all kind of struct object that using on the project
+- `entity` will be contain all kind of struct object that using on the project <- mostly representative from db structure
 
 ### Compiling
 - For UNIX, build using `make build`
