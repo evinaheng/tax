@@ -7,6 +7,7 @@
 - `api-bills` executeable script app also included for now, should be included on gitignore
 - included for now in case you cannot dep update regarding the library
 - for full link git in `https://github.com/evinaheng/tax`
+- please only delete `vendor` folder if you cannot build / make project then run `dep ensure -vendory-only`
  
 ### Onboarding
 - Install Golang `1.11.2` & Golang Dep `0.5`
@@ -22,7 +23,10 @@
 - For UNIX, build using `make build`
 
 ### Running
-- Run docker, refer to [this document](../docker/README.md)
+- Run docker,
+- Make sure you have install docker
+- go thru docker folder, and type `sudo docker-compose up` please kindly create mysql db called `tax`
+- table DDL can be found inside docker/sql
 
 
 ### For Running the Application
